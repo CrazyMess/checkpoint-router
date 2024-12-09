@@ -1,7 +1,7 @@
 import React from "react";
 import Filter from "./Filter";
 import MovieList from "./MovieList";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { v4 as uuidv4 } from 'uuid';
@@ -19,9 +19,20 @@ const Home = () => {
   const [rating, setRating] = useState("");
   const [trailerLink, setTrailerLink] = useState("");
 
+
+   // Load movies from local storage on mount
+   useEffect(() => {
+    const savedMovies = localStorage.getItem("movies");
+    if (savedMovies) {
+      setMovies(JSON.parse(savedMovies));
+    }
+  }, []);
+
   //handle adding new movie
   const addMovie = (newMovie) => {
-    setMovies([...movies, newMovie]);
+    const updatedMovies = [...movies, newMovie];
+    setMovies(updatedMovies);
+    localStorage.setItem("movies", JSON.stringify(updatedMovies));
   };
 
   //handle form submission

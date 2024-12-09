@@ -1,5 +1,8 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
+import Button from "react-bootstrap/Button";
+import Container from "react-bootstrap/Container";
+import Card from "react-bootstrap/Card";
 
 const MoviePage = () => {
 
@@ -17,26 +20,30 @@ const MoviePage = () => {
   const link = `https://www.youtube.com/embed/${vidId?.[1] || ""}`;
 
   return (
-    <div>
-       <div>
-        <h1>{state.title}</h1>
-
-        <p>{state.description}</p>
-        <h2>Trailer:</h2>
-        <br />
-        <iframe
-          width="500"
-          height="300"
-          src={link}
-          title="movie trailer"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          referrerPolicy="strict-origin-when-cross-origin"
-          allowFullScreen
-        ></iframe>
-      </div> 
-
-      <Link to={"/"}>go back</Link>
-    </div>
+    <Container className="mt-5">
+      <Card>
+        <Card.Body>
+          <Card.Title className="text-center mb-4">{state.title}</Card.Title>
+          <Card.Text>{state.description}</Card.Text>
+          <h5 className="mt-4">Trailer:</h5>
+          <iframe
+            width="100%"
+            height="600"
+            src={link}
+            title="movie trailer"
+            className="my-3 border rounded"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerPolicy="strict-origin-when-cross-origin"
+            allowFullScreen
+          ></iframe>
+          <div className="text-center">
+            <Button variant="primary" as={Link} to={"/"}>
+              Go Back
+            </Button>
+          </div>
+        </Card.Body>
+      </Card>
+    </Container>
   );
 };
 
